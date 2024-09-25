@@ -1,10 +1,10 @@
-#!/bin/bash
-
+#!/bin/sh
+#
 # Author: Shiro Yami
-
+#
 # Usage: ./render.sh <template> <variables> <values> <output_file>
-
-# Example: ./render.sh template.txt "var1,var2" "value1,value2" output.txt
+#
+# Example: ./render.sh template.html "var1,var2" "value1,value2" output.html
 
 TEMPLATE="$1"
 VARIABLES="$2"

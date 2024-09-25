@@ -4,26 +4,22 @@
 #
 # Example: ./include.sh placeholder parent.html child.html output.html
 
-
 function include() {
     local placeholder="$1"
     local parent="$2"
     local child="$3"
     local output="$4"
 
-    local content=$(<"$parent")
-    local child_content=$(<"$child")
 
-    local escaped_content=$(printf '%s\n' "$content" | sed 's/[\/&]/\\&/g')
-    local escaped_child_content=$(printf '%s\n' "$child_content" | sed 's/[\/&]/\\&/g')
+    local child_content=$(cat "$child")
+    awk -v content="$child_content" -v placeholder="{$placeholder}" '
+    {
+        gsub(placeholder, content);
+        print;
+    }' "$parent" > "$output"
 
-    # Replace the placeholder in the parent content with the child contentn
-    sed -e "s|{{ $placeholder }}|$escaped_child_content|g" "$parent" > "$output"
-    
-
+    echo "HTML file generated: $output"
 }
-
-
 
 PLACEHOLDER="$1"
 PARENT="$2"
